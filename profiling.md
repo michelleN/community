@@ -28,3 +28,7 @@ or analogous one for you Cloud provider. Afterwards you can e.g. run
 go tool pprof http://localhost:<local_port>/debug/pprof/profile
 ```
 to get 30 sec. CPU profile.
+
+## Contention profiling
+
+To enable contetion profiling you need to add line ```rt.SetBlockProfileRate(1)``` to ones added before (```rt``` stands for ```runtime``` in ```master.go```). This enables 'debug/pprof/block' subpage, which can be used as an input go to ```go tool pprof```.
