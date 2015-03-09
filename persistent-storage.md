@@ -8,11 +8,11 @@ Two new API kinds:
 
 A `PersistentVolume` (PV) is a storage resource provisioned by an administrator.  It is analogous to a node.
 
-A `PersistentVolumeClaim` (PVC) is a user's request for a persistent volume to use in a pod. It is analogous to a pod.
+A `PersistentVolumeClaim` (PVC) is a user's request for a persistent volume to use in a pod. It is analogous to a pod.  
 
 One new system component:
 
-`PersistentVolumeManager` is a singleton running in master that manages all PVs in the system, analogous to the node controller.  The volume manager watches the API for newly created volumes to manage.  The manager also watches for claims by users and binds them to available volumes.
+`PersistentVolumeManager` is a singleton running in master that manages all PVs in the system, analogous to the node controller.  The volume manager watches the API for newly created volumes to manage.  The manager also watches for claims by users and binds them to available volumes. 
 
 One new volume:
 
@@ -32,21 +32,23 @@ Kubernetes makes no guarantees at runtime that the underlying storage exists or 
 
 #### Describe available storage
 
-Cluster administrators use the API to manage *PersistentVolumes*.  The singleton PersistentVolumeManager watches the Kubernetes API for new volumes and adds them to its internal cache of volumes in the system. All persistent volumes are managed and made available by the volume manager.  The manager also watches for new claims for storage and binds them to an available volume by matching the volume's characteristics (AccessModes and storage size) to the user's request.
+Cluster adminstrators use the API to manage *PersistentVolumes*.  The singleton PersistentVolumeManager watches the Kubernetes API for new volumes and adds them to its internal cache of volumes in the system. All persistent volumes are managed and made available by the volume manager.  The manager also watches for new claims for storage and binds them to an available volume by matching the volume's characteristics (AccessModes and storage size) to the user's request.
 
-Many means of dynamic provisioning will be eventually be implemented for various storage types.
+PVs are system objects and, thus, have no namespace.
+
+Many means of dynamic provisioning will be eventually be implemented for various storage types. 
 
 
 ##### PersistentVolume API
 
 | Action | HTTP Verb | Path | Description |
 | ---- | ---- | ---- | ---- |
-| CREATE | POST | /api/{version}/persistentvolumes/ | Create instance of PersistentVolume in system namespace  |
-| GET | GET | /api/{version}persistentvolumes/{name} | Get instance of PersistentVolume in system namespace with {name} |
-| UPDATE | PUT | /api/{version}/persistentvolumes/{name} | Update instance of PersistentVolume in system namespace with {name} |
-| DELETE | DELETE | /api/{version}/persistentvolumes/{name} | Delete instance of PersistentVolume in system namespace with {name} |
-| LIST | GET | /api/{version}/persistentvolumes | List instances of PersistentVolume in system namespace |
-| WATCH | GET | /api/{version}/watch/persistentvolumes | Watch for changes to a PersistentVolume in system namespace |
+| CREATE | POST | /api/{version}/persistentvolumes/ | Create instance of PersistentVolume |
+| GET | GET | /api/{version}persistentvolumes/{name} | Get instance of PersistentVolume with {name} |
+| UPDATE | PUT | /api/{version}/persistentvolumes/{name} | Update instance of PersistentVolume with {name} |
+| DELETE | DELETE | /api/{version}/persistentvolumes/{name} | Delete instance of PersistentVolume with {name} |
+| LIST | GET | /api/{version}/persistentvolumes | List instances of PersistentVolume |
+| WATCH | GET | /api/{version}/watch/persistentvolumes | Watch for changes to a PersistentVolume |
 
 
 #### Request Storage
@@ -104,7 +106,7 @@ spec:
 cluster/kubectl.sh get pv
 
 NAME                LABELS              CAPACITY            ACCESSMODES         STATUS              CLAIM
-pv0001              map[]               10737418240         RWO                 Pending
+pv0001              map[]               10737418240         RWO                 Pending    
 
 
 ```
@@ -117,7 +119,7 @@ The user must be within a namespace to create PVCs.
 
 ```
 
-POST:
+POST: 
 kind: PersistentVolumeClaim
 apiVersion: v1beta3
 metadata:
@@ -135,7 +137,7 @@ cluster/kubectl.sh get pvc
 
 
 NAME                LABELS              STATUS              VOLUME
-myclaim-1           map[]               pending
+myclaim-1           map[]               pending                         
 
 ```
 
@@ -167,7 +169,7 @@ The claim holder can use their claim as a volume.  The ```PersistentVolumeClaimV
 The claim holder owns the claim and its data for as long as the claim exists.  The pod using the claim can be deleted, but the claim remains in the user's namespace.  It can be used again and again by many pods.
 
 ```
-POST:
+POST: 
 
 kind: Pod
 apiVersion: v1beta3
@@ -200,6 +202,6 @@ cluster/kubectl.sh delete pvc myclaim-1
 
 ```
 
-The ```PersistentVolumeManager``` will reconcile this by removing the claim reference from the PV and change the PVs status to 'Released'.
+The ```PersistentVolumeManager``` will reconcile this by removing the claim reference from the PV and change the PVs status to 'Released'.   
 
-Admins can script the recycling of released volumes.  Future dynamic provisioners will understand how a volume should be recycled.
+Admins can script the recycling of released volumes.  Future dynamic provisioners will understand how a volume should be recycled.  
