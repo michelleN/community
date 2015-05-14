@@ -251,3 +251,7 @@ process and auto-scaler are fighting to increase and decrease the count of the t
 to prevent this, deployment orchestration should notify the auto-scaler that a deployment is occurring.  This will
 temporarily disable negative decrement thresholds until the deployment process is completed.  It is more important for
 an auto-scaler to be able to grow capacity during a deployment than to shrink the number of instances precisely.
+
+
+
+[![Analytics](https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/proposals/autoscaling.md?pixel)]()
