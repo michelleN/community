@@ -12,7 +12,7 @@ done automatically based on statistical analysis and thresholds.
 
 * Provide a concrete proposal for implementing auto-scaling pods within Kubernetes
 * Implementation proposal should be in line with current discussions in existing issues:
-    * Resize verb - [1629](https://github.com/GoogleCloudPlatform/kubernetes/issues/1629)
+    * Scale verb - [1629](https://github.com/GoogleCloudPlatform/kubernetes/issues/1629)
     * Config conflicts - [Config](https://github.com/GoogleCloudPlatform/kubernetes/blob/c7cb991987193d4ca33544137a5cb7d0292cf7df/docs/config.md#automated-re-configuration-processes)
     * Rolling updates - [1353](https://github.com/GoogleCloudPlatform/kubernetes/issues/1353)
     * Multiple scalable types - [1624](https://github.com/GoogleCloudPlatform/kubernetes/issues/1624)
@@ -23,7 +23,7 @@ done automatically based on statistical analysis and thresholds.
 * `ReplicationControllers` will not know about the auto-scaler, they are the target of the auto-scaler.  The `ReplicationController` responsibilities are
 constrained to only ensuring that the desired number of pods are operational per the [Replication Controller Design](http://docs.k8s.io/replication-controller.md#responsibilities-of-the-replication-controller)
 * Auto-scalers will be loosely coupled with data gathering components in order to allow a wide variety of input sources
-* Auto-scalable resources will support a resize verb ([1629](https://github.com/GoogleCloudPlatform/kubernetes/issues/1629))
+* Auto-scalable resources will support a scale verb ([1629](https://github.com/GoogleCloudPlatform/kubernetes/issues/1629))
 such that the auto-scaler does not directly manipulate the underlying resource.
 * Initially, most thresholds will be set by application administrators. It should be possible for an autoscaler to be
 written later that sets thresholds automatically based on past behavior (CPU used vs incoming requests).
@@ -31,7 +31,7 @@ written later that sets thresholds automatically based on past behavior (CPU use
 explicitly setting the replica count to 0 should mean that the auto-scaler does not try to scale the application up)
 * It should be possible to write and deploy a custom auto-scaler without modifying existing auto-scalers
 * Auto-scalers must be able to monitor multiple replication controllers while only targeting a single scalable
-object (for now a ReplicationController, but in the future it could be a job or any resource that implements resize)
+object (for now a ReplicationController, but in the future it could be a job or any resource that implements scale)
 
 ## Use Cases
 
@@ -68,13 +68,13 @@ In order to facilitate talking about auto-scaling the following definitions are 
 * `ReplicationController` - the first building block of auto scaling.  Pods are deployed and scaled by a `ReplicationController`.
 * kube proxy - The proxy handles internal inter-pod traffic, an example of a data source to drive an auto-scaler
 * L3/L7 proxies - A routing layer handling outside to inside traffic requests, an example of a data source to drive an auto-scaler
-* auto-scaler - scales replicas up and down by using the `resize` endpoint provided by scalable resources (`ReplicationController`)
+* auto-scaler - scales replicas up and down by using the `scale` endpoint provided by scalable resources (`ReplicationController`)
 
 
 ### Auto-Scaler
 
 The Auto-Scaler is a state reconciler responsible for checking data against configured scaling thresholds
-and calling the `resize` endpoint to change the number of replicas.  The scaler will
+and calling the `scale` endpoint to change the number of replicas.  The scaler will
 use a client/cache implementation to receive watch data from the data aggregators and respond to them by
 scaling the application.  Auto-scalers are created and defined like other resources via REST endpoints and belong to the
 namespace just as a `ReplicationController` or `Service`.
@@ -84,7 +84,7 @@ Since an auto-scaler is a durable object it is best represented as a resource.
 ```go
     //The auto scaler interface
     type AutoScalerInterface interface {
-        //ScaleApplication adjusts a resource's replica count.  Calls resize endpoint.
+        //ScaleApplication adjusts a resource's replica count.  Calls scale endpoint.
         //Args to this are based on what the endpoint
         //can support.  See https://github.com/GoogleCloudPlatform/kubernetes/issues/1629
         ScaleApplication(num int) error
@@ -118,8 +118,8 @@ Since an auto-scaler is a durable object it is best represented as a resource.
         //0 means that the application is allowed to idle
         MinAutoScaleCount int
 
-        //TargetSelector provides the resizeable target(s).  Right now this is a ReplicationController
-        //in the future it could be a job or any resource that implements resize.
+        //TargetSelector provides the scalable target(s).  Right now this is a ReplicationController
+        //in the future it could be a job or any resource that implements scale.
         TargetSelector map[string]string
 
         //MonitorSelector defines a set of capacity that the auto-scaler is monitoring
@@ -219,8 +219,8 @@ Of note: If the statistics gathering mechanisms can be initialized with a regist
 potentially piggyback on this registry.
 
 ### Multi-target Scaling Policy
-If multiple resizable targets satisfy the `TargetSelector` criteria the auto-scaler should be configurable as to which
-target(s) are resized.  To begin with, if multiple targets are found the auto-scaler will scale the largest target up
+If multiple scalable targets satisfy the `TargetSelector` criteria the auto-scaler should be configurable as to which
+target(s) are scaled.  To begin with, if multiple targets are found the auto-scaler will scale the largest target up
 or down as appropriate.  In the future this may be more configurable.
 
 ### Interactions with a deployment
