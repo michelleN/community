@@ -41,7 +41,7 @@ Two new API kinds:
 
 A `PersistentVolume` (PV) is a storage resource provisioned by an administrator.  It is analogous to a node. See [Persistent Volume Guide](../user-guide/persistent-volumes/) for how to use it.
 
-A `PersistentVolumeClaim` (PVC) is a user's request for a persistent volume to use in a pod. It is analogous to a pod.  
+A `PersistentVolumeClaim` (PVC) is a user's request for a persistent volume to use in a pod. It is analogous to a pod.
 
 One new system component:
 
@@ -69,7 +69,7 @@ Cluster administrators use the API to manage *PersistentVolumes*.  A custom stor
 
 PVs are system objects and, thus, have no namespace.
 
-Many means of dynamic provisioning will be eventually be implemented for various storage types. 
+Many means of dynamic provisioning will be eventually be implemented for various storage types.
 
 
 ##### PersistentVolume API
@@ -116,7 +116,7 @@ TBD
 
 #### Events
 
-The implementation of persistent storage will not require events to communicate to the user the state of their claim.  The CLI for bound claims contains a reference to the backing persistent volume.  This is always present in the API and CLI, making an event to communicate the same unnecessary. 
+The implementation of persistent storage will not require events to communicate to the user the state of their claim.  The CLI for bound claims contains a reference to the backing persistent volume.  This is always present in the API and CLI, making an event to communicate the same unnecessary.
 
 Events that communicate the state of a mounted volume are left to the volume plugins.
 
