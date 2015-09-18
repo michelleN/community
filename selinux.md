@@ -1,3 +1,36 @@
+<!-- BEGIN MUNGE: UNVERSIONED_WARNING -->
+
+<!-- BEGIN STRIP_FOR_RELEASE -->
+
+<img src="http://kubernetes.io/img/warning.png" alt="WARNING"
+     width="25" height="25">
+<img src="http://kubernetes.io/img/warning.png" alt="WARNING"
+     width="25" height="25">
+<img src="http://kubernetes.io/img/warning.png" alt="WARNING"
+     width="25" height="25">
+<img src="http://kubernetes.io/img/warning.png" alt="WARNING"
+     width="25" height="25">
+<img src="http://kubernetes.io/img/warning.png" alt="WARNING"
+     width="25" height="25">
+
+<h2>PLEASE NOTE: This document applies to the HEAD of the source tree</h2>
+
+If you are using a released version of Kubernetes, you should
+refer to the docs that go with that version.
+
+<strong>
+The latest 1.0.x release of this document can be found
+[here](http://releases.k8s.io/release-1.0/docs/proposals/selinux.md).
+
+Documentation for other releases can be found at
+[releases.k8s.io](http://releases.k8s.io).
+</strong>
+--
+
+<!-- END STRIP_FOR_RELEASE -->
+
+<!-- END MUNGE: UNVERSIONED_WARNING -->
+
 ## Abstract
 
 A proposal for enabling containers in a pod to share volumes using a pod level SELinux context.
@@ -31,7 +64,7 @@ Goals of this design:
 ### Docker
 
 Docker uses a base SELinux context and calculates a unique MCS label per container.  The SELinux
-context of a container can be overridden with the `SecurityOpt` api that allows setting the different
+context of a container can be overriden with the `SecurityOpt` api that allows setting the different
 parts of the SELinux context individually.
 
 Docker has functionality to relabel bind-mounts with a usable SElinux and supports two different
@@ -40,20 +73,19 @@ use-cases:
 1.  The `:Z` bind-mount flag, which tells Docker to relabel a bind-mount with the container's
     SELinux context
 2.  The `:z` bind-mount flag, which tells Docker to relabel a bind-mount with the container's
-    SElinux context, but remove the MCS labels, making the volume shareable between containers
+    SElinux context, but remove the MCS labels, making the volume shareable beween containers
 
 We should avoid using the `:z` flag, because it relaxes the SELinux context so that any container
 (from an SELinux standpoint) can use the volume.
 
-### rkt
+### Rocket
 
-rkt currently reads the base SELinux context to use from `/etc/selinux/*/contexts/lxc_contexts`
+Rocket currently reads the base SELinux context to use from `/etc/selinux/*/contexts/lxc_contexts`
 and allocates a unique MCS label per pod.
 
 ### Kubernetes
 
-
-There is a [proposed change](https://github.com/kubernetes/kubernetes/pull/9844) to the
+There is a [proposed change](https://github.com/GoogleCloudPlatform/kubernetes/pull/9844) to the
 EmptyDir plugin that adds SELinux relabeling capabilities to that plugin, which is also carried as a
 patch in [OpenShift](https://github.com/openshift/origin).  It is preferable to solve the problem
 in general of handling SELinux in kubernetes to merging this PR.
@@ -97,8 +129,7 @@ Kubernetes volumes can be divided into two broad categories:
     3.  Block device based volumes in `ReadOnlyMany` or `ReadWriteMany` modes are shared because
         they may be used simultaneously by multiple pods.
 
-For unshared storage, SELinux handling for most volumes can be generalized into running a `chcon`
-operation on the volume directory after running the volume plugin's `Setup` function.  For these
+For unshared storage, SELinux handling for most volumes can be generalized into running a `chcon` operation on the volume directory after running the volume plugin's `Setup` function.  For these
 volumes, the Kubelet can perform the `chcon` operation and keep SELinux concerns out of the volume
 plugin code.  Some volume plugins may need to use the SELinux context during a mount operation in
 certain cases.  To account for this, our design must have a way for volume plugins to state that
@@ -166,9 +197,9 @@ From the above, we know that label management must be applied:
 3.  To some volume types *sometimes*
 
 Volumes should be relabeled with the correct SELinux context.  Docker has this capability today; it
-is desirable for other container runtime implementations to provide similar functionality.
+is desireable for other container runtime implementations to provide similar functionality.
 
-Relabeling should be an optional aspect of a volume plugin to accommodate:
+Relabeling should be an optional aspect of a volume plugin to accomodate:
 
 1.  volume types for which generalized relabeling support is not sufficient
 2.  testing for each volume plugin individually
@@ -188,7 +219,7 @@ depends on:
 
 1.  Users and groups in Kubernetes
 2.  General auth policy in Kubernetes
-3.  [security policy](https://github.com/kubernetes/kubernetes/pull/7893)
+3.  [security policy](https://github.com/GoogleCloudPlatform/kubernetes/pull/7893)
 
 ### API changes
 
@@ -245,7 +276,7 @@ criteria to activate the kubelet SELinux label management for volumes are:
 3.  The `pod.Spec.SecurityContext.SELinuxOptions` field is set
 4.  The volume plugin supports SELinux label management
 
-The `volume.Mounter` interface should have a new method added that indicates whether the plugin
+The `volume.Builder` interface should have a new method added that indicates whether the plugin
 supports SELinux label management:
 
 ```go
@@ -310,8 +341,6 @@ to manage labels individually.
 This allows the volume plugins to determine when they do and don't want this type of support from
 the Kubelet, and allows the criteria each plugin uses to evolve without changing the Kubelet.
 
-
-
 <!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
-[![Analytics](https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/design/selinux.md?pixel)]()
+[![Analytics](https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/proposals/selinux.md?pixel)]()
 <!-- END MUNGE: GENERATED_ANALYTICS -->
