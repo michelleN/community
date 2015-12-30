@@ -186,6 +186,15 @@ KUBE_DNS_REPLICAS=1
 
 To know more on DNS service you can look [here](http://issue.k8s.io/6667). Related documents can be found [here](../../cluster/addons/dns/#how-do-i-configure-it)
 
+```sh
+KUBE_ENABLE_CLUSTER_DNS=true
+KUBE_DNS_SERVER_IP="10.0.0.10"
+KUBE_DNS_DOMAIN="cluster.local"
+KUBE_DNS_REPLICAS=1
+```
+
+To know more on DNS service you can look [here](http://issue.k8s.io/6667). Related documents can be found [here](../../cluster/addons/dns/#how-do-i-configure-it)
+
 
 <!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
 [![Analytics](https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/devel/running-locally.md?pixel)]()
