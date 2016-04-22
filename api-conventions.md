@@ -34,7 +34,7 @@ Documentation for other releases can be found at
 API Conventions
 ===============
 
-Updated: 10/8/2015
+Updated: 4/22/2016
 
 *This document is oriented at users who want a deeper understanding of the
 Kubernetes API structure, and developers wanting to extend the Kubernetes API.
@@ -804,6 +804,8 @@ operations (GET on a collection) return resourceVersion.
 APIs may return alternative representations of any resource in response to an
 Accept header or under alternative endpoints, but the default serialization for
 input and output of API responses MUST be JSON.
+
+Protobuf serialization of API objects are currently **EXPERIMENTAL** and will change without notice.
 
 All dates should be serialized as RFC3339 strings.
 
