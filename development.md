@@ -71,7 +71,7 @@ You may pass build options and packages to the script as necessary. To build
 binaries for all platforms:
 
 ```sh
-        hack/build-cross.sh
+        make cross
 ```
 
 ## Workflow
