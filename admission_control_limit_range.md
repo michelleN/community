@@ -70,7 +70,7 @@ type LimitRangeSpec struct {
 type LimitRange struct {
   TypeMeta `json:",inline"`
   // Standard object's metadata.
-  // More info:
+  // More info: 
   //    http://releases.k8s.io/v1.4.0-alpha.0/docs/devel/api-conventions.md#metadata
   ObjectMeta `json:"metadata,omitempty"`
 
@@ -84,7 +84,7 @@ type LimitRange struct {
 type LimitRangeList struct {
   TypeMeta `json:",inline"`
   // Standard list metadata.
-  // More info:
+  // More info: 
   //   http://releases.k8s.io/v1.4.0-alpha.0/docs/devel/api-conventions.md#types-kinds
   ListMeta `json:"metadata,omitempty"`
 
@@ -109,7 +109,7 @@ The following default value behaviors are applied to a LimitRange for a given
 named resource.
 
 ```
-if LimitRangeItem.Default[resourceName] is undefined
+if LimitRangeItem.Default[resourceName] is undefined 
   if LimitRangeItem.Max[resourceName] is defined
     LimitRangeItem.Default[resourceName] = LimitRangeItem.Max[resourceName]
 ```
