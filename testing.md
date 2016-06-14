@@ -18,11 +18,6 @@
 If you are using a released version of Kubernetes, you should
 refer to the docs that go with that version.
 
-<!-- TAG RELEASE_LINK, added by the munger automatically -->
-<strong>
-The latest release of this document can be found
-[here](http://releases.k8s.io/release-1.3/docs/devel/testing.md).
-
 Documentation for other releases can be found at
 [releases.k8s.io](http://releases.k8s.io).
 </strong>
@@ -233,18 +228,6 @@ and a special watch cache test in `cmd/integration/integration.go`.
 
 You can use also use the `KUBE_TEST_ARGS` environment variable with the `hack
 /test-integration.sh` script to run a specific integration test case:
-
-```sh
-# Run integration test TestPodUpdateActiveDeadlineSeconds with the verbose flag set.
-KUBE_GOFLAGS="-v" KUBE_TEST_ARGS="-run ^TestPodUpdateActiveDeadlineSeconds$" hack/test-integration.sh
-```
-
-If you set `KUBE_TEST_ARGS`, the test case will be run with only the `v1` API
-version and the watch cache test is skipped.
-
-## End-to-End tests
-
-Please refer to [End-to-End Testing in Kubernetes](e2e-tests.md).
 
 <!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
 [![Analytics](https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/devel/testing.md?pixel)]()

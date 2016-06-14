@@ -21,7 +21,7 @@ refer to the docs that go with that version.
 <!-- TAG RELEASE_LINK, added by the munger automatically -->
 <strong>
 The latest release of this document can be found
-[here](http://releases.k8s.io/release-1.3/docs/devel/running-locally.md).
+[here](http://releases.k8s.io/release-1.2/docs/devel/running-locally.md).
 
 Documentation for other releases can be found at
 [releases.k8s.io](http://releases.k8s.io).
@@ -181,15 +181,6 @@ One or more of the Kubernetes daemons might've crashed. Tail the logs of each in
 #### The pods fail to connect to the services by host names
 
 To start the DNS service, you need to set the following variables:
-
-```sh
-KUBE_ENABLE_CLUSTER_DNS=true
-KUBE_DNS_SERVER_IP="10.0.0.10"
-KUBE_DNS_DOMAIN="cluster.local"
-KUBE_DNS_REPLICAS=1
-```
-
-To know more on DNS service you can look [here](http://issue.k8s.io/6667). Related documents can be found [here](../../cluster/addons/dns/#how-do-i-configure-it)
 
 ```sh
 KUBE_ENABLE_CLUSTER_DNS=true
