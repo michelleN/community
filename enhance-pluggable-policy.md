@@ -21,7 +21,7 @@ refer to the docs that go with that version.
 <!-- TAG RELEASE_LINK, added by the munger automatically -->
 <strong>
 The latest release of this document can be found
-[here](http://releases.k8s.io/release-1.3/docs/design/enhance-pluggable-policy.md).
+[here](http://releases.k8s.io/release-1.2/docs/design/enhance-pluggable-policy.md).
 
 Documentation for other releases can be found at
 [releases.k8s.io](http://releases.k8s.io).
@@ -119,7 +119,7 @@ type Authorizer interface {
 // a particular action
 type Authorizer interface {
   // Authorize takes a Context (for namespace, user, and traceability) and
-  //   Attributes to make a policy determination.
+  //   Attributes to make a policy determination. 
   // reason is an optional return value that can describe why a policy decision
   //   was made.  Reasons are useful during debugging when trying to figure out
   //   why a user or group has access to perform a particular action.
@@ -133,7 +133,7 @@ type Authorizer interface {
 //   namespaces they are allowed to view instead of having to choose between
 //   listing them all or listing none.
 type AuthorizerIntrospection interface {
-  // GetAllowedSubjects takes a Context (for namespace and traceability) and
+  // GetAllowedSubjects takes a Context (for namespace and traceability) and 
   // Attributes to determine which users and groups are allowed to perform the
   // described action in the namespace. This API enables the ResourceBasedReview
   // requests below

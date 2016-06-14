@@ -21,7 +21,7 @@ refer to the docs that go with that version.
 <!-- TAG RELEASE_LINK, added by the munger automatically -->
 <strong>
 The latest release of this document can be found
-[here](http://releases.k8s.io/release-1.3/docs/design/taint-toleration-dedicated.md).
+[here](http://releases.k8s.io/release-1.2/docs/design/taint-toleration-dedicated.md).
 
 Documentation for other releases can be found at
 [releases.k8s.io](http://releases.k8s.io).
@@ -132,7 +132,7 @@ type TaintEffect string
 const (
   // Do not allow new pods to schedule unless they tolerate the taint,
   // but allow all pods submitted to Kubelet without going through the scheduler
-  // to start, and allow all already-running pods to continue running.
+  // to start, and allow all already-running pods to continue running. 
   // Enforced by the scheduler.
   TaintEffectNoSchedule TaintEffect = "NoSchedule"
   // Like TaintEffectNoSchedule, but the scheduler tries not to schedule

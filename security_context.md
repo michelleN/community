@@ -21,7 +21,7 @@ refer to the docs that go with that version.
 <!-- TAG RELEASE_LINK, added by the munger automatically -->
 <strong>
 The latest release of this document can be found
-[here](http://releases.k8s.io/release-1.3/docs/design/security_context.md).
+[here](http://releases.k8s.io/release-1.2/docs/design/security_context.md).
 
 Documentation for other releases can be found at
 [releases.k8s.io](http://releases.k8s.io).
@@ -147,15 +147,15 @@ type SecurityContextProvider interface {
 	// ModifyContainerConfig is called before the Docker createContainer call.
 	// The security context provider can make changes to the Config with which
 	// the container is created.
-	// An error is returned if it's not possible to secure the container as
-	// requested with a security context.
+	// An error is returned if it's not possible to secure the container as 
+	// requested with a security context. 
 	ModifyContainerConfig(pod *api.Pod, container *api.Container, config *docker.Config)
-
+	
 	// ModifyHostConfig is called before the Docker runContainer call.
 	// The security context provider can make changes to the HostConfig, affecting
 	// security options, whether the container is privileged, volume binds, etc.
-	// An error is returned if it's not possible to secure the container as requested
-	// with a security context.
+	// An error is returned if it's not possible to secure the container as requested 
+	// with a security context. 
 	ModifyHostConfig(pod *api.Pod, container *api.Container, hostConfig *docker.HostConfig)
 }
 ```
