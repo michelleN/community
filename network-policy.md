@@ -321,6 +321,8 @@ metadata:
   name: allow-all
 spec:
   podSelector:
+  ingress:
+  - {}
 ```
 
 ## References
