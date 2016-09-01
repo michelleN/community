@@ -21,7 +21,7 @@ refer to the docs that go with that version.
 <!-- TAG RELEASE_LINK, added by the munger automatically -->
 <strong>
 The latest release of this document can be found
-[here](http://releases.k8s.io/release-1.2/docs/design/aws_under_the_hood.md).
+[here](http://releases.k8s.io/release-1.4/docs/design/aws_under_the_hood.md).
 
 Documentation for other releases can be found at
 [releases.k8s.io](http://releases.k8s.io).
@@ -93,9 +93,6 @@ volume, and so nodes on AWS use instance storage.  Instance storage is cheaper,
 often faster, and historically more reliable. Unless you can make do with
 whatever space is left on your root partition, you must choose an instance type
 that provides you with sufficient instance storage for your needs.
-
-To configure Kubernetes to use EBS storage, pass the environment variable
-`KUBE_AWS_STORAGE=ebs` to kube-up.
 
 Note: The master uses a persistent volume ([etcd](architecture.md#etcd)) to
 track its state. Similar to nodes, containers are mostly run against instance
