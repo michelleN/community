@@ -9,6 +9,8 @@
 **Meetings:** Thursdays at 9am pacific.  Contact Joe or Bob for invite. [Notes](https://docs.google.com/a/bobsplanet.com/document/d/1hEpf25qifVWztaeZPFmjNiJvPo-5JX1z0LSvvVY5G2g/edit?usp=drive_web
 )
 
+**Docs:**
+[Scaling And Performance Goals](goals.md)
 
 ### Scalability SLAs
 
