@@ -275,7 +275,7 @@ func (r *objectRecorderImpl) Event(reason, message string) {
 }
 
 func ObjectEventRecorderFor(object runtime.Object, recorder EventRecorder) ObjectEventRecorder {
-  return &objectRecorderImpl{object, recorder}	
+  return &objectRecorderImpl{object, recorder}
 }
 ```
 

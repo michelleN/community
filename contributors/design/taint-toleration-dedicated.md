@@ -99,7 +99,7 @@ type TaintEffect string
 const (
   // Do not allow new pods to schedule unless they tolerate the taint,
   // but allow all pods submitted to Kubelet without going through the scheduler
-  // to start, and allow all already-running pods to continue running. 
+  // to start, and allow all already-running pods to continue running.
   // Enforced by the scheduler.
   TaintEffectNoSchedule TaintEffect = "NoSchedule"
   // Like TaintEffectNoSchedule, but the scheduler tries not to schedule

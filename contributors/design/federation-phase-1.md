@@ -306,7 +306,7 @@ cases it may be complex. For example:
 
 Below is a sample of the YAML to create such a replication controller.
 
-``` 
+```
 apiVersion: v1
 kind: ReplicationController
 metadata:
@@ -325,7 +325,7 @@ spec:
         image: nginx
         ports:
         - containerPort: 80
-      clusterSelector: 
+      clusterSelector:
       name in (Foo, Bar)
 ```
 

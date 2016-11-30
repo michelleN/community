@@ -78,7 +78,7 @@ nodes, preempting other pods if necessary.
         labels:
           app: datastore-shard
       spec:
-        nodeSelector: 
+        nodeSelector:
           app: datastore-node
         containers:
           name: datastore-shard

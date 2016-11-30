@@ -244,7 +244,7 @@ contains metadata about the type. For example:
 ```yaml
 resourceTypes: [
   "kubernetes.io/memory": [
-    isCompressible: false, ... 
+    isCompressible: false, ...
   ]
   "kubernetes.io/cpu": [
     isCompressible: true,

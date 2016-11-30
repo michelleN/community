@@ -47,7 +47,7 @@ type MetadataPolicyRule struct {
 
 // All criteria must be met for the PolicyPredicate to be considered met.
 type PolicyPredicate struct {
-	// Note that Namespace is not listed here because MetadataPolicy is per-Namespace.	
+	// Note that Namespace is not listed here because MetadataPolicy is per-Namespace.
 	LabelSelector *LabelSelector       `json:"labelSelector,omitempty"`
 	AnnotationSelector *LabelSelector  `json:"annotationSelector,omitempty"`
 }

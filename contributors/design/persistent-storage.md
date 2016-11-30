@@ -142,7 +142,7 @@ spec:
 $ kubectl get pv
 
 NAME                LABELS              CAPACITY            ACCESSMODES         STATUS              CLAIM              REASON
-pv0001              map[]               10737418240         RWO                 Pending    
+pv0001              map[]               10737418240         RWO                 Pending
 ```
 
 #### Users request storage
@@ -153,7 +153,7 @@ AccessModes they wish their volume to have and the minimum size needed.
 The user must be within a namespace to create PVCs.
 
 ```yaml
-POST: 
+POST:
 
 kind: PersistentVolumeClaim
 apiVersion: v1
@@ -171,7 +171,7 @@ spec:
 $ kubectl get pvc
 
 NAME                LABELS              STATUS              VOLUME
-myclaim-1           map[]               pending                         
+myclaim-1           map[]               pending
 ```
 
 
@@ -250,7 +250,7 @@ The pod using the claim can be deleted, but the claim remains in the user's
 namespace. It can be used again and again by many pods.
 
 ```yaml
-POST: 
+POST:
 
 kind: Pod
 apiVersion: v1

@@ -142,9 +142,9 @@ const(
   NamespaceTerminating NamespaceTerminating = "Terminating"
 )
 
-type NamespaceStatus struct { 
+type NamespaceStatus struct {
   ...
-  Phase NamespacePhase 
+  Phase NamespacePhase
 }
 ```
 
